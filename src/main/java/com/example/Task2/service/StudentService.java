@@ -17,7 +17,7 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Optional<Student> getStudentById(int id) {
+    public Student getStudentById(int id) {
         return studentRepository.findById(id);
     }
 
@@ -26,18 +26,12 @@ public class StudentService {
     }
 
     public Student updateStudent(int id, Student updatedStudent) {
-        Optional<Student> existingStudentOptional = studentRepository.findById(id);
-
-        if (existingStudentOptional.isPresent()) {
-            Student existingStudent = existingStudentOptional.get();
-            existingStudent.setName(updatedStudent.getName());
-            existingStudent.setAge(updatedStudent.getAge());
-            existingStudent.setSalary(updatedStudent.getSalary());
-            return studentRepository.save(existingStudent);
-        } else {
-
-            return null;
-        }
+        Student existingStudent = studentRepository.findById(id);
+        existingStudent.setName(updatedStudent.getName());
+        existingStudent.setAge(updatedStudent.getAge());
+        existingStudent.setSalary(updatedStudent.getSalary());
+        return studentRepository.save(existingStudent);
+        
     }
 
     public String deleteStudent(int id) {
